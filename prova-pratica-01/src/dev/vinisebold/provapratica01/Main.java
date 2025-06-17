@@ -5,7 +5,6 @@ import java.util.Scanner;
 public class Main {
     public static void main(String[] args) {
 
-        // Inicializa Scanner
         Scanner input = new Scanner(System.in);
 
         // Declaração dos arrays
@@ -61,10 +60,9 @@ public class Main {
         }
         int idxCidade = (int) posCidade;
         int idxTemp = (int) posTemperatura;
-        System.out.println("A Temperatura em ºC em : " + vetCidadesNomes[idxCidade] + " na " + vetSemana[idxTemp] + " foi de " + vetMaisAlta[idxTemp]);
+        System.out.println("A temperatura mais alta foi de " + vlrTemperatura + "°C em " + vetCidadesNomes[idxCidade] + " na " + vetSemana[idxTemp] + ".");
 
         System.out.println("===Dia mais Frio===");
-        System.out.println(diaMaisFrio(matTemperaturas));
         System.out.println(diaMaisFrio(matTemperaturas));
 
         // Fecha Scanner
@@ -80,7 +78,7 @@ public class Main {
     }
 
     public static double menorTemperatura(double[][] pMatTemperaturas, int pIndiceCidade) {
-        double menor = pMatTemperaturas[pIndiceCidade][0];
+        double menor = Integer.MAX_VALUE;
         for (int j = 0; j < pMatTemperaturas[pIndiceCidade].length; j++) {
             if (pMatTemperaturas[pIndiceCidade][j] < menor) {
                 menor = pMatTemperaturas[pIndiceCidade][j];
@@ -90,7 +88,7 @@ public class Main {
     }
 
     public static double maiorTemperatura(double[][] pMatTemperaturas, int pIndiceCidade) {
-        double maior = pMatTemperaturas[pIndiceCidade][0];
+        double maior = Integer.MIN_VALUE;
         for (int j = 0; j < pMatTemperaturas[pIndiceCidade].length; j++) {
             if (pMatTemperaturas[pIndiceCidade][j] > maior) {
                 maior = pMatTemperaturas[pIndiceCidade][j];
