@@ -12,7 +12,7 @@ O Entra21 é um programa de formação em tecnologia criado para suprir a cresce
 
 ## Conteúdo do Repositório
 
-- [Prova Prática 1](./prova-pratica-01)  
-- [Desafio Final](./prova-pratica-01)
+- [➡️ Prova Prática 1](./prova-pratica-01)  
+- [➡️ Desafio Final](./desafio-final)
 
 ---
