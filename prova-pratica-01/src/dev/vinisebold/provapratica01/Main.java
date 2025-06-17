@@ -8,10 +8,9 @@ public class Main {
         Scanner input = new Scanner(System.in);
 
         // Declaração dos arrays
-        String[] vetSemana = {"Segunda", "Terça", "Quarta", "Quinta", "Sexta", "Sábado", "Domingo"};
+        String[] vetSemana = {"Segunda-Feira", "Terça-Feira", "Quarta-Feira", "Quinta-Feira", "Sexta-Feira", "Sábado", "Domingo"};
         String[] vetCidadesNomes = new String[4];
         double[][] matTemperaturas = new double[4][7];
-        double[] vetMaisAlta = new double[3];
 
         // Entrada de dados
         for (int i = 0; i < vetCidadesNomes.length; i++) {
@@ -26,7 +25,7 @@ public class Main {
         }
 
         // Output
-        System.out.println("===Media Temperatura===");
+        System.out.println("\n===Media Temperatura===");
         for (int indiceCidade = 0; indiceCidade < vetCidadesNomes.length; indiceCidade++) {
             System.out.printf("[" + vetCidadesNomes[indiceCidade] + "] %.2f°C%n", mediaTemperatura(matTemperaturas, indiceCidade));
         }
@@ -41,29 +40,28 @@ public class Main {
             System.out.printf("[" + vetCidadesNomes[indiceCidade] + "] %.2f°C%n", maiorTemperatura(matTemperaturas, indiceCidade));
         }
 
+        System.out.println("===Dias com temperatura abaixo de 15°C===");
+        for (int indiceCidade = 0; indiceCidade < vetCidadesNomes.length; indiceCidade++) {
+            System.out.printf("[" + vetCidadesNomes[indiceCidade] + "] %d dias%n", contarDiasFrios(matTemperaturas, indiceCidade));
+        }
+
         System.out.println("===Média Geral===");
         System.out.printf("[Média Geral] %.2f°C%n", mediaTemperaturaGeral(matTemperaturas));
 
         System.out.println("===Dia mais Quente===");
-        vetMaisAlta = diaMaisQuente(matTemperaturas);
-        double posCidade = 0;
-        double posTemperatura = 0;
-        double vlrTemperatura = 0.0;
-        for (int i = 0; i < vetMaisAlta.length; i++) {
-            if (i == 0) {
-                posCidade = vetMaisAlta[i];
-            } else if (i == 1) {
-                posTemperatura = vetMaisAlta[i];
-            } else {
-                vlrTemperatura = vetMaisAlta[i];
-            }
-        }
-        int idxCidade = (int) posCidade;
-        int idxTemp = (int) posTemperatura;
+        double[] vetMaisAlta = diaMaisQuente(matTemperaturas);
+        int idxCidade = (int) vetMaisAlta[0];
+        int idxTemp = (int) vetMaisAlta[1];
+        double vlrTemperatura = vetMaisAlta[2];
         System.out.println("A temperatura mais alta foi de " + vlrTemperatura + "°C em " + vetCidadesNomes[idxCidade] + " na " + vetSemana[idxTemp] + ".");
 
         System.out.println("===Dia mais Frio===");
-        System.out.println(diaMaisFrio(matTemperaturas));
+        double[] vetMaisBaixa = diaMaisFrio(matTemperaturas);
+        idxCidade = (int) vetMaisBaixa[0];
+        idxTemp = (int) vetMaisBaixa[1];
+        vlrTemperatura = vetMaisBaixa[2];
+        System.out.println("A temperatura mais baixa foi de " + vlrTemperatura + "°C em " + vetCidadesNomes[idxCidade] + " na " + vetSemana[idxTemp] + ".");
+
 
         // Fecha Scanner
         input.close();
@@ -78,7 +76,7 @@ public class Main {
     }
 
     public static double menorTemperatura(double[][] pMatTemperaturas, int pIndiceCidade) {
-        double menor = Integer.MAX_VALUE;
+        double menor = Double.MAX_VALUE;
         for (int j = 0; j < pMatTemperaturas[pIndiceCidade].length; j++) {
             if (pMatTemperaturas[pIndiceCidade][j] < menor) {
                 menor = pMatTemperaturas[pIndiceCidade][j];
@@ -88,13 +86,23 @@ public class Main {
     }
 
     public static double maiorTemperatura(double[][] pMatTemperaturas, int pIndiceCidade) {
-        double maior = Integer.MIN_VALUE;
+        double maior = Double.MIN_VALUE;
         for (int j = 0; j < pMatTemperaturas[pIndiceCidade].length; j++) {
             if (pMatTemperaturas[pIndiceCidade][j] > maior) {
                 maior = pMatTemperaturas[pIndiceCidade][j];
             }
         }
         return maior;
+    }
+
+    public static int contarDiasFrios(double[][] pMatTemperaturas, int pIndiceCidade) {
+        int contadorDias = 0;
+        for (int j = 0; j < pMatTemperaturas[pIndiceCidade].length; j++) {
+            if (pMatTemperaturas[pIndiceCidade][j] < 15) {
+                contadorDias++;
+            }
+        }
+        return contadorDias;
     }
 
     public static double mediaTemperaturaGeral(double[][] pMatTemperaturas) {
@@ -108,7 +116,7 @@ public class Main {
     }
 
     public static double[] diaMaisQuente(double[][] pMatTemperaturas) {
-        double tempMaisQuente = 0;
+        double tempMaisQuente = Double.MIN_VALUE;
         double[][] matDiaMaisQuente = new double[1][1];
         int posCidade = 0;
         int postemperatura = 0;
@@ -124,19 +132,20 @@ public class Main {
         return new double[]{posCidade, postemperatura, tempMaisQuente};
     }
 
-    public static double diaMaisFrio(double[][] pMatTemperaturas) {
-        double diaMaisFrio = pMatTemperaturas[0][0];
-        int lin = 0;
-        int col = 0;
+    public static double[] diaMaisFrio(double[][] pMatTemperaturas) {
+        double tempMaisFrio = Double.MAX_VALUE;
+        double[][] matDiaMaisFrio = new double[1][1];
+        int posCidade = 0;
+        int postemperatura = 0;
         for (int i = 0; i < pMatTemperaturas.length; i++) {
             for (int j = 0; j < pMatTemperaturas[0].length; j++) {
-                if (pMatTemperaturas[i][j] < diaMaisFrio) {
-                    diaMaisFrio = pMatTemperaturas[i][j];
-                    lin = i;
-                    col = j;
+                if (pMatTemperaturas[i][j] < tempMaisFrio) {
+                    tempMaisFrio = pMatTemperaturas[i][j];
+                    posCidade = i;
+                    postemperatura = j;
                 }
             }
         }
-        return pMatTemperaturas[lin][col];
+        return new double[]{posCidade, postemperatura, tempMaisFrio};
     }
 }
