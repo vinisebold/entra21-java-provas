@@ -1,4 +1,4 @@
-package dev.vinisebold.provapratica01;
+package provapratica01;
 
 import java.util.Scanner;
 

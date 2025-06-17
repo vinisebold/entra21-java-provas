@@ -1,4 +1,4 @@
-package dev.vinisebold.desafiofinal;
+package desafiofinal;
 
 public class Main {
     public static void main(String[] args) {
