@@ -8,7 +8,7 @@ public class Main {
         Scanner sc = new Scanner(System.in);
 
         // Declaração de vetor
-        Double[] vetorValores = new Double[12];
+        double[] vetorValores = new double[12];
         String[] vetorMeses = {"Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho", "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro"};
 
         // Entrada de dados
